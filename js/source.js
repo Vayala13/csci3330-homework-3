@@ -100,8 +100,138 @@ $(function () {
     // *********************************************************************
 
 
+    // Display the single values in the header, stat cards, and notifications
+    function loadStats() {
+        $('#username').text(username);
+        $('.revenue-amt').text(revenueAmt);
+        $('#customer-num').text(customerNum);
+        $('#orders-amt').text(ordersAmt);
+        $('#issues-amt').text(issuesAmt);
+        $('#notification-num').text(notifAmt);
+    }
+    loadStats();
 
-       
+
+    // Build a table row for each sale and add it to the Sales Summary table
+    function loadSales() {
+        sales.forEach( sale => {
+            const row = $("<tr>");
+            row.html(`<td>${sale.product}</td><td>${sale.quantity}</td><td>${sale.revenue}</td>`);
+            $('#salesTableBody').append(row);
+        })
+    }
+    loadSales();
+
+
+    // Build a table row for each customer and add it to the Recent Customers table
+    function loadCustomers() {
+        customers.forEach( customer => {
+            let statusClass = 'status-active';
+            if (customer.status == 'Pending') {
+                statusClass = 'status-pending';
+            }
+
+            const row = $("<tr>");
+            row.html(`<td>${customer.name}</td><td>${customer.email}</td><td><span class="status ${statusClass}">${customer.status}</span></td><td>${customer.joined}</td>`);
+            $('#customerTableBody').append(row);
+        })
+    }
+    loadCustomers();
+
+
+    // Build a list item for each activity and add it to the Recent Activity list
+    function loadActivities() {
+        activities.forEach( activity => {
+            const listItem = $("<li>");
+            listItem.html(`${activity.message}`);
+            $('#activity-list').append(listItem);
+        })
+    }
+    loadActivities();
+
+
+    // Build a list item for each system message and add it to the System Status list
+    function loadSystemStatus() {
+        messages.forEach( message => {
+            const listItem = $("<li>");
+            listItem.html(`${message.messsage}`);
+            $('#system-status-list').append(listItem);
+        })
+    }
+    loadSystemStatus();
+
+
+    // Build a list item for each notification and add it to the Notifications list
+    function loadNotifications() {
+        notifications.forEach( notification => {
+            const listItem = $("<li>");
+            listItem.html(`${notification.messsage}`);
+            $('#notifications-list').append(listItem);
+        })
+    }
+    loadNotifications();
+
+
+    // Build a list item for each task and add it to the Tasks list
+    function loadTasks() {
+        tasks.forEach( task => {
+            const listItem = $("<li>");
+            listItem.html(`${task.messsage}`);
+            $('#tasks-list').append(listItem);
+        })
+    }
+    loadTasks();
+
+
+    // Convert all HTML buttons into jQuery UI Button widgets
+    $('button').button();
+
+
+    // Convert the dashboard tabs into a jQuery UI Tabs widget
+    $('#dashboardTabs').tabs();
+
+
+    // Convert the customer form into a jQuery UI Dialog widget
+    $('#customerDialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 450,
+        buttons: {
+            "Create Customer": function () {
+                var name = $("#customerName").val();
+                var email = $("#customerEmail").val();
+                if (!name || !email) {
+                    alert(
+                        "Please enter a name and email."
+                    );
+                    return;
+                }
+
+                alert("Customer created: " + name);
+                $(this).dialog("close");
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+
+    // Convert the right-side panel into a jQuery UI Accordion widget
+    $('#accordion').accordion({
+        collapsible: true,
+        heightStyle: "content"
+    });
+
+
+    // Open the customer dialog when the New Customer button is clicked
+    $('#newCustomerButton').on('click', function() {
+        $('#customerDialog').dialog("open");
+    });
+
+
+    // Convert the registration date field into a jQuery UI Datepicker widget
+    $('#customerDate').datepicker();
 
 
     });
