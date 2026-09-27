@@ -112,4 +112,31 @@ $(function () {
     loadStats();
 
 
+    // Build a table row for each sale and add it to the Sales Summary table
+    function loadSales() {
+        sales.forEach( sale => {
+            const row = $("<tr>");
+            row.html(`<td>${sale.product}</td><td>${sale.quantity}</td><td>${sale.revenue}</td>`);
+            $('#salesTableBody').append(row);
+        })
+    }
+    loadSales();
+
+
+    // Build a table row for each customer and add it to the Recent Customers table
+    function loadCustomers() {
+        customers.forEach( customer => {
+            let statusClass = 'status-active';
+            if (customer.status == 'Pending') {
+                statusClass = 'status-pending';
+            }
+
+            const row = $("<tr>");
+            row.html(`<td>${customer.name}</td><td>${customer.email}</td><td><span class="status ${statusClass}">${customer.status}</span></td><td>${customer.joined}</td>`);
+            $('#customerTableBody').append(row);
+        })
+    }
+    loadCustomers();
+
+
     });
