@@ -100,8 +100,16 @@ $(function () {
     // *********************************************************************
 
 
-
-       
+    // Display the single values in the header, stat cards, and notifications
+    function loadStats() {
+        $('#username').text(username);
+        $('.revenue-amt').text(revenueAmt);
+        $('#customer-num').text(customerNum);
+        $('#orders-amt').text(ordersAmt);
+        $('#issues-amt').text(issuesAmt);
+        $('#notification-num').text(notifAmt);
+    }
+    loadStats();
 
 
     });
