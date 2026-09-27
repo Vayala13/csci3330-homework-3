@@ -183,4 +183,55 @@ $(function () {
     loadTasks();
 
 
+    // Convert all HTML buttons into jQuery UI Button widgets
+    $('button').button();
+
+
+    // Convert the dashboard tabs into a jQuery UI Tabs widget
+    $('#dashboardTabs').tabs();
+
+
+    // Convert the customer form into a jQuery UI Dialog widget
+    $('#customerDialog').dialog({
+        autoOpen: false,
+        modal: true,
+        width: 450,
+        buttons: {
+            "Create Customer": function () {
+                var name = $("#customerName").val();
+                var email = $("#customerEmail").val();
+                if (!name || !email) {
+                    alert(
+                        "Please enter a name and email."
+                    );
+                    return;
+                }
+
+                alert("Customer created: " + name);
+                $(this).dialog("close");
+            },
+            "Cancel": function () {
+                $(this).dialog("close");
+            }
+        }
+    });
+
+
+    // Convert the right-side panel into a jQuery UI Accordion widget
+    $('#accordion').accordion({
+        collapsible: true,
+        heightStyle: "content"
+    });
+
+
+    // Open the customer dialog when the New Customer button is clicked
+    $('#newCustomerButton').on('click', function() {
+        $('#customerDialog').dialog("open");
+    });
+
+
+    // Convert the registration date field into a jQuery UI Datepicker widget
+    $('#customerDate').datepicker();
+
+
     });
